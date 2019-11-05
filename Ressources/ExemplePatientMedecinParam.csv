@@ -1,0 +1,23 @@
+Données utilisateur:,
+Nom,Jean
+Prénom,Marcus
+Age,68
+Poids,87
+Taille,175
+Sexe,Homme
+N°id,157895
+,
+Contact d'urgence:,
+Nom,Chalin
+Prénom,Julien
+Numéro de téléphone,645789551
+Mail,julien.chalin@gmail.com
+,
+Données médecin:,
+Nom,LePoul
+Prenom,Mickeal
+Mail,lepoul.mickeal@gmail.com
+Numéro,33648985615
+,
+Pression systolique périphérique,130
+Pression diastolique périphérique,90

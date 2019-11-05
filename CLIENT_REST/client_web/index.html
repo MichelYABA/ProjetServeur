@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="img/favicon.ico">
+    <title>Client REST</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+    <!-- Custom styles -->
+ 
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">AXELIFE</a>
+    </nav>
+
+
+    <main role="main" class="container mt-5">
+        <div class="content pt-5">
+            <h1>Client REST</h1>
+
+            <div id="send">
+                <p>
+                    Veuillez choisir puis envoyer votre fichier CSV
+                </p>
+                <form enctype="application/vnd.ms-excel" method="post" class="form-group" id="formulaire">
+                    <label for="InputCSV">Fichier CSV</label>
+                    <input type="file" class="form-control-file" id="InputCSV" aria-describedby="fileHelp">
+                </form>
+                <button id="envoie" onclick="SendFile()" class="btn-primary">Envoyer</button>
+                <span class="erreur"></span>
+            </div>
+            <div id="get">
+                <span id="get_1"></span>
+                <br />
+                <span id="get_2"></span>
+            </div>
+        </div>
+    </main>
+
+
+
+    <!-- /.container -->
+    <!-- Bootstrap core JavaScript
+        ================================================== -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script>
+        window.jQuery || document.write('<script src="/assets/js/vendor/jquery-slim.min.js"><\/script>')
+    </script>
+    <script type="text/javascript">
+    	 function checkExtension(verifExt, idChamp){
+			    let erreur = document.querySelector(".erreur");
+			    let myString = document.getElementById(idChamp).value;
+			    let myExt = myString.substring(myString.lastIndexOf(".")+1, myString.length);
+			        myExt = myExt.toLowerCase();
+
+			    for (i = 0; i<verifExt.length; i++) {
+			           if (myExt === verifExt[i])
+			              return true;
+			          }
+			    erreur.style.color ='red';
+			    if (myString ===""){
+			          erreur.textContent ="Aucun fichier sélectionné";
+			          return false;
+			    }
+			    erreur.textContent = "Seul le format de fichier .csv n'est autorisé";
+			    return false;
+		}
+
+    	function SendFile() {
+   			console.log("tu as cliqué");
+   			/* let erreur = document.querySelector(".erreur");
+   			  erreur.style.color ='red';
+   			   erreur.textContent = "Seul le format de fichier .csv n'est autorisé";
+   			   console.log(erreur)*/
+
+   			//document.getElementById("formulaire").addEventListener("envoie", function(e){
+    			let i;
+    			let err = document.querySelector(".erreur");
+			    for (i = 0; i < err.length ; i++) {
+			          err[i].textContent = "";
+			    }
+
+			    let ext =['csv'];
+			    let r = checkExtension(ext, 'InputCSV');
+
+			    let valide=true;
+
+			    valide = r && valide;
+
+			    if (!valide){
+			         // e.preventDefault();
+			         console.log("il y'a erreur")
+			     }else{
+			     	console.log(" pas d'erreur");
+			     	let InputCSV = $("#InputCSV")[0].files[0]; //this is the input where I can choose the file
+  					let formData = new FormData();
+  					formData.append("InputCSV", InputCSV);
+
+  					let xhr = new XMLHttpRequest();
+  					xhr.open("POST", "http://0.0.0.0:5000/inputcsv");
+
+  					xhr.send(formData);
+			     }
+			//});
+   		}
+    </script>
+    <!--script src="js/app.js">
+    	
+    </script-->
+</body>
+
+</html>
